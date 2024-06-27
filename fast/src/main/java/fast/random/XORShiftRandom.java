@@ -46,4 +46,12 @@ public final class XORShiftRandom {
 	public final boolean nextBoolean() {
 		return (nextInt() & 0x1b) == 0;
 	}
+	
+  public double nextDouble() {
+    return (nextInt()) / 0x7FFF;
+  }
+  
+  public double nextDouble(double a, double b) {
+    return a + (nextInt() / 0x7FFF)*(b-a);
+  }
 }

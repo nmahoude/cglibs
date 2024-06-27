@@ -13,7 +13,6 @@
 	<modules>
 		<module>trigonometry</module>
 		<module>cache</module>
-		<module>random</module>
 		<module>cgcollections</module>
 		<module>cgalgorithms</module>
 		<module>cgutils</module>
