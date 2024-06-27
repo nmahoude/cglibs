@@ -1,12 +1,12 @@
 package trigonometry;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 public class SegmentTest {
 
@@ -16,8 +16,8 @@ public class SegmentTest {
     Segment segment = new Segment(new Point(100,100), new Point(200,200));
     Segment segment2 = new Segment(new Point(100,100), new Vector(100,100));
 
-    assertThat(segment.p1, is(segment2.p1));
-    assertThat(segment.p2, is(segment2.p2));
+    assertThat(segment.p1).isEqualTo(segment2.p1);
+    assertThat(segment.p2).isEqualTo(segment2.p2);
   }
   
   @Test
@@ -27,7 +27,7 @@ public class SegmentTest {
     
     List<Point> intersection = segment.intersection(circle);
     
-    assertThat(intersection.size(), is(0));
+    assertThat(intersection).hasSize(0);
   }
 
   @Test
@@ -37,9 +37,9 @@ public class SegmentTest {
     
     List<Point> intersection = segment.intersection(circle);
     
-    assertThat(intersection.size(), is(2));
-    assertThat(intersection, hasItem(new Point(500,0)));
-    assertThat(intersection, hasItem(new Point(-500,0)));
+    assertThat(intersection).hasSize(2);
+    assertThat(intersection).contains(new Point(500,0));
+    assertThat(intersection).contains(new Point(-500,0));
   }
   
   
@@ -52,6 +52,6 @@ public class SegmentTest {
     
     List<Point> intersectingPoints = segment.intersection(c);
 
-    assertThat(intersectingPoints.size(), is(0));
+    assertThat(intersectingPoints).hasSize(0);
   }
 }

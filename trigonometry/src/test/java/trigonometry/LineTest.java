@@ -1,12 +1,10 @@
 package trigonometry;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LineTest {
 
@@ -18,9 +16,9 @@ public class LineTest {
       
       List<Point> intersection = line.intersection(circle);
       
-      assertThat(intersection.size(), is(2));
-      assertThat(intersection, hasItem(new Point(500,0)));
-      assertThat(intersection, hasItem(new Point(-500,0)));
+      assertThat(intersection).hasSize(2);
+      assertThat(intersection).contains(new Point(500,0));
+      assertThat(intersection).contains(new Point(-500,0));
     }
     
     @Test
@@ -30,8 +28,8 @@ public class LineTest {
       
       List<Point> intersection = line.intersection(circle);
       
-      assertThat(intersection.size(), is(1));
-      assertThat(intersection, hasItem(new Point(-0.0,500.0)));
+      assertThat(intersection).hasSize(1);
+      assertThat(intersection).contains(new Point(-0.0,500.0));
     }
   }
 
@@ -43,7 +41,7 @@ public class LineTest {
       
       double length = line.distanceTo(p);
       
-      assertThat(length, is(0.0));
+      assertThat(length).isEqualTo(0.0);
     } 
     @Test
     public void orthogonal_Y() throws Exception {
@@ -52,7 +50,7 @@ public class LineTest {
       
       double length = line.distanceTo(p);
       
-      assertThat(length, is(1.0));
+      assertThat(length).isEqualTo(1.0);
     }
     
     @Test
@@ -62,7 +60,7 @@ public class LineTest {
       
       double length = line.distanceTo(p);
       
-      assertThat(length, is(3.0));
+      assertThat(length).isEqualTo(3.0);
     }
     
     @Test
@@ -72,7 +70,7 @@ public class LineTest {
       
       double length = line.distanceTo(p);
       
-      assertThat(length, is(1.0));
+      assertThat(length).isEqualTo(1.0);
     }
   }
 }

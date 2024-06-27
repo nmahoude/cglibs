@@ -1,16 +1,14 @@
 package trigonometry;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class VectorTest {
 
   @Test
-  @Ignore
+  @Disabled
   public void getInertialPointsIntersection_zeroSolution() throws Exception {
     Vector speed = new Vector(0, 100);
     Vector desiredDirection = new Vector(100, 0);
@@ -18,11 +16,11 @@ public class VectorTest {
     
     Point[] solutions = Vector.getInertialPointsIntersection(speed, desiredDirection, maxForce);
     
-    assertThat(solutions, is (nullValue()));
+    assertThat(solutions).isNull();
   }
 
   @Test
-  @Ignore
+  @Disabled
   public void getInertialPointsIntersection_oneSolution() throws Exception {
     Vector speed = new Vector(0, 100);
     Vector desiredDirection = new Vector(100, 0);
@@ -30,11 +28,11 @@ public class VectorTest {
     
     Point[] solutions = Vector.getInertialPointsIntersection(speed, desiredDirection, maxForce);
     
-    assertThat(solutions.length, is (1));
+    assertThat(solutions.length).isEqualTo(1);
   }
   
   @Test
-  @Ignore
+  @Disabled
   public void getInertialPointsIntersection() throws Exception {
     Vector speed = new Vector(0, 100);
     Vector desiredDirection = new Vector(100, 0);
@@ -42,9 +40,9 @@ public class VectorTest {
     
     Point[] solutions = Vector.getInertialPointsIntersection(speed, desiredDirection, maxForce);
     
-    assertThat(solutions.length, is (2));
-    assertThat(solutions[0], is (new Point(100, 0)));
-    assertThat(solutions[1], is (new Point(-100, 0)));
+    assertThat(solutions.length).isEqualTo(2);
+    assertThat(solutions[0]).isEqualTo(new Point(100, 0));
+    assertThat(solutions[1]).isEqualTo(new Point(-100, 0));
   }
 
 

@@ -1,13 +1,14 @@
 package minimax;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 public class MinimaxTest {
 
@@ -73,7 +74,7 @@ public class MinimaxTest {
     Minimax minimax = new Minimax();
     int score = minimax.alphaBeta(root, Integer.MAX_VALUE, Integer.MIN_VALUE, true);
   
-    assertThat(score, is (10));
+    assertThat(score).isEqualTo(10);
   }
   
 }

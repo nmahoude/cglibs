@@ -1,9 +1,8 @@
 package trigonometry;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class OBB2DTest {
 
@@ -12,7 +11,7 @@ public class OBB2DTest {
     OBB2D rect1 = new OBB2D(new Point(0,50), new Vector(100,0), 50);
     OBB2D rect2 = new OBB2D(new Point(50,50), new Vector(100,0), 50);
     
-    assertThat(rect1.overlaps(rect2), is(true));
+    assertThat(rect1.overlaps(rect2)).isTrue();
   }
   
   @Test
@@ -31,7 +30,7 @@ public class OBB2DTest {
         new Vector(50,100)
     });
     
-    assertThat(rect1.overlaps(rect2), is(true));
+    assertThat(rect1.overlaps(rect2)).isTrue();
   }
   
   @Test
@@ -50,7 +49,7 @@ public class OBB2DTest {
         new Vector(0,100)
     });
     
-    assertThat(rect1.overlaps(rect2), is(false));
+    assertThat(rect1.overlaps(rect2)).isFalse();
   }
   
 }
