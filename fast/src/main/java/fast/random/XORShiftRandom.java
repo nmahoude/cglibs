@@ -29,17 +29,17 @@ public final class XORShiftRandom {
 
   // return in [0..1]
   public int nextInt2() {
-  	return nextInt() & 0x1b;
+  	return nextInt() & 0b1;
   }
   
   // return in [0..3]
   public int nextInt4() {
-  	return nextInt() & 0x11b;
+  	return nextInt() & 0b11;
   }
   
   // return in [0..7]
   public int nextInt8() {
-  	return nextInt() & 0x111b;
+  	return nextInt() & 0b111;
   }
 
   
