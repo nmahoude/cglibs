@@ -1,5 +1,9 @@
-# Compiled class file
-*.class
+**/target/
+**/bin/
+**/.settings/
+**/.classpath
+**/.project
+**/.idea/*
 
 # Log file
 *.log
