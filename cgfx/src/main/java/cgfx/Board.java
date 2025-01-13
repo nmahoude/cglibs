@@ -158,6 +158,12 @@ public class Board implements BoardDrawer {
 		this.vbox.getChildren().add(node);
 	}
 
-
+	public void drawImage(int x, int y, int w, int h, Brush brush, int bx, int by) {
+		getGc().drawImage(brush.image(),
+				bx, by,
+				brush.resolution, brush.resolution,
+				x * scale, y * scale,
+				w * scale, h*scale);
+	}
 	
 }

@@ -68,14 +68,14 @@ public class CellBoard extends Board {
   }
 
   public void fillCellAt(Color border, Color inside, Cell cell, Inset inset) {
-    fillRect(border, inside, 
-        Pos.from(boardDecal.dx + CELL_SIZE * cell.x+inset.l, boardDecal.dy + CELL_SIZE * cell.y + inset.l), 
+    fillRect(border, inside,
+        Pos.from(boardDecal.dx + CELL_SIZE * cell.x+inset.l, boardDecal.dy + CELL_SIZE * cell.y + inset.l),
         Length.of(CELL_SIZE-inset.l*2, CELL_SIZE-inset.l*2));
   }
   
   public void fillCellAt(Color border, Color inside, Cell cell, Decal decal, Length length) {
-    fillRect(border, inside, 
-        Pos.from(boardDecal.dx + CELL_SIZE * cell.x+decal.dx, boardDecal.dy + CELL_SIZE * cell.y + decal.dy), 
+    fillRect(border, inside,
+            getPosFromCellCoords(cell, decal),
         length);
   }
 
@@ -88,14 +88,18 @@ public class CellBoard extends Board {
    */
   @Deprecated
   public void drawCellText(Color color, Cell cell, Length decal, String text) {
-    super.drawText(color, Pos.from(boardDecal.dx + CELL_SIZE * cell.x + decal.dx, boardDecal.dy + CELL_SIZE * cell.y+decal.dy+16), text);
+    super.drawText(color, getPosFromCellCoords(cell, Decal.of(decal.dx, decal.dy)), text);
   }
 
   public void drawCellText(Color color, Cell cell, Decal decal, String text) {
-    super.drawText(color, Pos.from(boardDecal.dx + CELL_SIZE * cell.x + decal.dx, boardDecal.dy + CELL_SIZE * cell.y+decal.dy+16), text);
+    super.drawText(color, getPosFromCellCoords(cell, decal).add(0,16), text);
   }
 
-  public void drawCellCircle(Color color, Cell cell) {
+    private Pos getPosFromCellCoords(Cell cell, Decal decal) {
+        return Pos.from(boardDecal.dx + CELL_SIZE * cell.x + decal.dx, boardDecal.dy + CELL_SIZE * cell.y + decal.dy);
+    }
+
+    public void drawCellCircle(Color color, Cell cell) {
     strokeCellCircle(color, cell, Inset.NO, CELL_SIZE / 2);
   }
 
@@ -125,5 +129,15 @@ public class CellBoard extends Board {
 		return Pos.from(boardDecal.dx + cell.x* CELL_SIZE, boardDecal.dy + cell.y * CELL_SIZE);
 	}
 
+    public void drawImage(Cell cell, Brush brush, int bx, int by) {
+      var origin = getPosFromCellCoords(cell, Decal.NO);
+      var brushOrigin = brush.get(bx, by);
+        super.drawImage(origin.x, origin.y,
+                CELL_SIZE, CELL_SIZE,
+                brush,
+                brushOrigin.x,
+                brushOrigin.y
+                );
+    }
 
 }
