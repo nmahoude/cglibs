@@ -1,7 +1,12 @@
 package cgfx;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+
+import java.util.function.Consumer;
+
 /**
  * Represents a cell board (like chess)
  * 
@@ -22,7 +27,12 @@ public class CellBoard extends Board {
   
 	private Decal boardDecal;
 	private boolean showCoordinates;
-	
+
+    private int currentCellX = -1, currentCellY = -1;
+    private Consumer<Cell> onCellEnter = c -> {};
+    private Consumer<Cell> onCellExit = c -> {};
+
+
 	public CellBoard(Group parent, double scale, int width, int height) {
 		this(parent, scale, width, height, false);
 	}
@@ -34,10 +44,32 @@ public class CellBoard extends Board {
 		super(parent, CELL_SIZE * width + (showCoordinates ? DECAL_FOR_COORDINATES+decal.dx : 0), CELL_SIZE * height + (showCoordinates ? DECAL_FOR_COORDINATES+decal.dy : 0), scale);
 		this.showCoordinates = showCoordinates;
 		
-		this.boardDecal = showCoordinates ? Decal.of(DECAL_FOR_COORDINATES, DECAL_FOR_COORDINATES).add(decal) : decal; 
+		this.boardDecal = showCoordinates ? Decal.of(DECAL_FOR_COORDINATES, DECAL_FOR_COORDINATES).add(decal) : decal;
+
+        this.getCanvas().setOnMouseMoved(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int cellx = (int)(event.getX() / CELL_SIZE / scale);
+                int celly = (int)(event.getY() / CELL_SIZE / scale);
+
+                if (cellx != currentCellX || celly != currentCellY) {
+                    onCellExit.accept(Cell.at(cellx, celly));
+                    currentCellX = cellx;
+                    currentCellY = celly;
+                    onCellEnter.accept(Cell.at(cellx, celly));
+                }
+            }
+        });
+
 	}
-	
-	
+
+    public void setOnCellEnter(Consumer<Cell> consumer) {
+        this.onCellEnter = consumer;
+    }
+    public void setOnCellExit(Consumer<Cell> consumer) {
+        this.onCellEnter = consumer;
+    }
+
 	@Override
 	public void clear() {
 		super.clear();
